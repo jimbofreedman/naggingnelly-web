@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - 8
 script:
-- npm run build
+- yarn build
 deploy:
   on:
     repo: jimbofreedman/naggingnelly-web
@@ -16,3 +16,6 @@ deploy:
   acl: public_read
   skip_cleanup: true
   cache_control: "no-cache,no-store,private"
+cache:
+  yarn: true
+
