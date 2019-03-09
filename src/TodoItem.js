@@ -24,7 +24,7 @@ class TodoItem extends Component {
         status: item.attributes.status === 'open' ? 'complete' : 'open',
       },
     }).then(() => {
-      this.forceUpdate();
+      // this.forceUpdate();
     });
   }
 
@@ -35,10 +35,12 @@ class TodoItem extends Component {
   render() {
     const { item } = this.props;
 
+    console.log(item.attributes.status, item.attributes.due);
+
     return (
       <ListItem role={undefined} dense button onClick={this.handleToggle}>
         <Checkbox
-          checked={item.attributes.completed !== null}
+          checked={item.attributes.status === "complete"}
           tabIndex={-1}
           disableRipple
         />
