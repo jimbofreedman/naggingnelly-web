@@ -3,6 +3,7 @@ import './App.css';
 
 import { observer } from 'mobx-react';
 import axios from 'axios';
+import moment from 'moment';
 import { ResourceStore } from '@reststate/mobx';
 
 import List from '@material-ui/core/List';
@@ -39,8 +40,6 @@ class App extends Component {
   }
 
   render() {
-    console.log("rendering list");
-
     if (todoItemStore.loading) {
       return <p>Loading…</p>;
     }
@@ -49,13 +48,17 @@ class App extends Component {
       return <p>Error loading posts.</p>;
     }
 
+    const now = moment().format();
+
     return (
       <div className="App">
         <List>
           {
-            todoItemStore.all().map(item => (
-              <TodoItem key={item.id} item={item} />
-            ))
+            todoItemStore.all()
+              .filter(item => item.attributes.status === 'open' && item.attributes.start < now)
+              .map(item => (
+                <TodoItem key={item.id} item={item} />
+              ))
           }
         </List>
       </div>
