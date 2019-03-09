@@ -6,12 +6,8 @@ import axios from 'axios';
 import { ResourceStore } from '@reststate/mobx';
 
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+
+import TodoItem from './TodoItem';
 
 const token = '[the token you received from the POST request above]';
 
@@ -21,6 +17,12 @@ const httpClient = axios.create({
     'Content-Type': 'application/vnd.api+json',
     'Authorization': `Bearer ${token}`,
   },
+});
+
+httpClient.interceptors.request.use((config) => {
+  const url = config.url[config.url.length - 1] === '?' ? config.url.substr(0, config.url.length-1) : config.url;
+  config.url = url[url-1] === '/' ? url : url + '/';
+  return config;
 });
 
 const todoItemStore = new ResourceStore({
@@ -34,11 +36,9 @@ class App extends Component {
     console.log("loading");
   }
 
-  handleToggle(todoItem) {
-
-  }
-
   render() {
+    console.log("rendering list");
+
     if (todoItemStore.loading) {
       return <p>Loading…</p>;
     }
@@ -51,20 +51,8 @@ class App extends Component {
       <div className="App">
         <List>
           {
-            todoItemStore.all().map(todoItem => (
-              <ListItem key={todoItem.id} role={undefined} dense button onClick={this.handleToggle(todoItem)}>
-                <Checkbox
-                  checked={todoItem.attributes.completed !== null}
-                  tabIndex={-1}
-                  disableRipple
-                />
-                <ListItemText primary={todoItem.attributes.title} />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="Menu">
-                    <MenuIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
+            todoItemStore.all().map(item => (
+              <TodoItem key={item.id} item={item} />
             ))
           }
         </List>
