@@ -7,12 +7,14 @@ import { ResourceStore } from '@reststate/mobx';
 
 import List from '@material-ui/core/List';
 
+import config from './config';
+
 import TodoItem from './TodoItem';
 
 const token = '[the token you received from the POST request above]';
 
 const httpClient = axios.create({
-  baseURL: 'http://localhost:8000/todo/api/',
+  baseURL: config.api.endpoint,
   headers: {
     'Content-Type': 'application/vnd.api+json',
     'Authorization': `Bearer ${token}`,
