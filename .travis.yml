@@ -5,11 +5,13 @@ script:
 - npm run build
 deploy:
   provider: s3
+  region: eu-west-1
+  bucket: www.naggingnelly.com
   access_key_id: AKIAICPQV77O7BFDF6BA
   secret_access_key:
     secure: LPevYu3lYmB4iaWwwAV1gkAYcEsaOj2dCZjDm1B91eIADqVd8mTRMz+x/8WE8crNnME7AJUZQg5r/Ntll7SbvXumhbnDvboUJaSGF9c0u9H/1EsPAxErd2jaQF0NUqERtT3/Bm92IyM+o1k66uIDMPNT7imLHY3bCNdjzVv4y3ptty6CwAvq5qRythBFM+aTUEDnV+qwCJ6JerMrrMvJjj5uArg2huIFZdxj/RYzYO0E5T/ReXNsdfMuxkXOiMBqFBqNXZf75gghVZJBuLkaRXE182fBhUG9yW9BT0jaY5BtFVS6GG7i3tMYlhjVd44uYI8DtiHDtiZHtMQvVdBmKnJ/pCCwMcARDiQEcion0thBlnTLNNWYrS1jE9R1lvqwhsnk5osPBD7dIzhPqx9j592n0T6GJcT+YD/gUvCKa99BelG//CUJ6GTC6avp6iGNonzpH3Ib+dkkfRBTDS4x3qDqz5cfTx/CybdyT9/vWk2uN42UGuzvr3+tYaPzcku4m0lfhK59XJ0a+Cc1+C5k6UtcYd/St+DRl+DQdGGA4Jv/48diE2Wn16WqDxkQODMrWthfootjP83PdVll4dc7rKV+dI/zhWXyCVb+112kgvWyJsaFRhqZQsbIMbI9vCp0FEzXMuu3oi249anOITQT0OHo4Qa2ls6S+c375HejSKU=
-  bucket: www.naggingnelly.com
   local-dir: build
   acl: public_read
+  skip_cleanup: true
   on:
     repo: jimbofreedman/naggingnelly-web
