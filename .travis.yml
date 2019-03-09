@@ -4,6 +4,8 @@ node_js:
 script:
 - npm run build
 deploy:
+  on:
+    repo: jimbofreedman/naggingnelly-web
   provider: s3
   region: eu-west-1
   bucket: www.naggingnelly.com
@@ -13,5 +15,4 @@ deploy:
   local-dir: build
   acl: public_read
   skip_cleanup: true
-  on:
-    repo: jimbofreedman/naggingnelly-web
+  cache_control: "no-cache,no-store,private"
