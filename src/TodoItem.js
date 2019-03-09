@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
