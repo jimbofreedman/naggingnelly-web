@@ -6,8 +6,6 @@ import axios from 'axios';
 import moment from 'moment';
 import { ResourceStore } from '@reststate/mobx';
 
-import List from '@material-ui/core/List';
-
 import config from './config';
 
 import TodoItem from './TodoItem';
@@ -52,15 +50,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <List>
-          {
-            todoItemStore.all()
-              .filter(item => item.attributes.status === 'open' && item.attributes.start < now)
-              .map(item => (
-                <TodoItem key={item.id} item={item} />
-              ))
-          }
-        </List>
+        {
+          todoItemStore.all()
+            .filter(item => item.attributes.status === 'open' && item.attributes.start < now)
+            .map(item => (
+              <TodoItem key={item.id} item={item} />
+            ))
+        }
       </div>
     );
   }
