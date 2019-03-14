@@ -41,7 +41,7 @@ class TodoItem extends Component {
             onChange={() => this.updateStatus('complete')}
           />}
         />
-        <CardContent>{item.attributes.due} ({moment(item.attributes.due).fromNow()})</CardContent>
+        <CardContent>{item.attributes.due} ({moment(item.attributes.due).fromNow()}) [streak: {item.attributes.streak}]</CardContent>
         <CardActions>
           <IconButton aria-label="Menu" onClick={() => this.updateStatus('cancelled')}>
             <CancelIcon />
