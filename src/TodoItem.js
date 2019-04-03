@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import FailIcon from '@material-ui/icons/Cancel';
 import CancelIcon from '@material-ui/icons/RemoveCircle';
+import ErrorIcon from '@material-ui/icons/Error';
 
 class TodoItem extends Component {
   constructor(props) {
@@ -28,7 +29,10 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item } = this.props
+
+    const due = item.attributes.due ? moment(item.attributes.due) : null;
+    const overdue = due && due < moment() ? <ErrorIcon color="error" /> : null;
 
     return (
       <Card>
@@ -41,7 +45,7 @@ class TodoItem extends Component {
             onChange={() => this.updateStatus('complete')}
           />}
         />
-        <CardContent>{item.attributes.due} ({moment(item.attributes.due).fromNow()}) [streak: {item.attributes.streak}]</CardContent>
+        <CardContent>{overdue} {item.attributes.due} ({due ? due.fromNow() : ''}) [streak: {item.attributes.streak}]</CardContent>
         <CardActions>
           <IconButton aria-label="Menu" onClick={() => this.updateStatus('cancelled')}>
             <CancelIcon />
