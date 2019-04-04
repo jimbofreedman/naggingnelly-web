@@ -5,7 +5,12 @@ import React from 'react';
 
 const todoItemTarget = {
   drop(props, monitor) {
-    console.log("move", props, monitor.getItemType(), monitor.getItem().id, "to", props.id);
+    console.log(monitor.getItem());
+    monitor.getItem().item.update({
+      attributes: {
+        prioritizeAfter: props.id,
+      }
+    });
   },
 };
 

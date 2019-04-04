@@ -17,7 +17,7 @@ import TodoItemDropTarget from './TodoItemDropTarget';
 
 const todoItemSource = {
   beginDrag(props) {
-    return { id: props.item.id }
+    return { item: props.item };
   },
 };
 
