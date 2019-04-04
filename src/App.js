@@ -6,9 +6,16 @@ import axios from 'axios';
 import moment from 'moment';
 import { ResourceStore } from '@reststate/mobx';
 
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+
+import { DragSource, DropTarget } from 'react-dnd'
+
 import config from './config';
 
+import { ItemTypes } from './Constants';
 import TodoItem from './TodoItem';
+import TodoItemDropTarget from './TodoItemDropTarget';
 
 const token = '[the token you received from the POST request above]';
 
@@ -31,6 +38,7 @@ const todoItemStore = new ResourceStore({
   httpClient,
 });
 
+
 class App extends Component {
   componentDidMount() {
     todoItemStore.loadAll().then(todoItems => console.log("loaded", todoItems));
@@ -48,15 +56,19 @@ class App extends Component {
 
     const now = moment().format();
 
+    const items = todoItemStore.all().filter(item => item.attributes.status === 'open' && item.attributes.start < now);
+
     return (
       <div className="App">
-        {
-          todoItemStore.all()
-            .filter(item => item.attributes.status === 'open' && item.attributes.start < now)
-            .map(item => (
-              <TodoItem key={item.id} item={item} />
-            ))
-        }
+        <DragDropContextProvider backend={HTML5Backend}>
+          <TodoItemDropTarget id={null} /> { /* special case for dragging TodoItem to top of list - "after nothing" */ }
+          {
+            items
+              .map(item => (
+                <TodoItem key={item.id} item={item} />
+              ))
+          }
+        </DragDropContextProvider>
       </div>
     );
   }
