@@ -79,7 +79,7 @@ class App extends Component {
                 <div key={item.id} style={{
                   marginTop: "-40px",
                 }}>
-                  <TodoItem item={item} reorderValue={reorderValue}/>
+                  <TodoItem item={item} />
                   <TodoItemDropTarget order={reorderValue} />
                 </div>
               )

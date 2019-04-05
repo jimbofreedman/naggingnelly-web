@@ -13,7 +13,6 @@ import ErrorIcon from '@material-ui/icons/Error';
 import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from './Constants';
-import TodoItemDropTarget from './App';
 
 const todoItemSource = {
   beginDrag(props) {
@@ -46,7 +45,7 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { item, reorderValue, connectDragSource } = this.props
+    const { item, connectDragSource } = this.props
 
     const due = item.attributes.due ? moment(item.attributes.due) : null;
     const overdue = due && due < moment() ? <ErrorIcon color="error" /> : null;
