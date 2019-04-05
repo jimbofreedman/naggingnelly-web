@@ -9,11 +9,8 @@ import { ResourceStore } from '@reststate/mobx';
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import { DragSource, DropTarget } from 'react-dnd'
-
 import config from './config';
 
-import { ItemTypes } from './Constants';
 import TodoItem from './TodoItem';
 import TodoItemDropTarget from './TodoItemDropTarget';
 
@@ -46,27 +43,47 @@ class App extends Component {
   }
 
   render() {
+    console.log("Render app");
+
     if (todoItemStore.loading) {
       return <p>Loading…</p>;
     }
 
     if (todoItemStore.error) {
-      return <p>Error loading posts.</p>;
+      return <p>Error loading items.</p>;
     }
 
     const now = moment().format();
 
-    const items = todoItemStore.all().filter(item => item.attributes.status === 'open' && item.attributes.start < now);
+    const items = todoItemStore.all()
+      .filter(item => item.attributes.status === 'open' && item.attributes.start < now)
+      .sort((a, b) => a.attributes.order - b.attributes.order);
+
+    if (items.length === 0) {
+      return <p>No items</p>;
+    }
 
     return (
       <div className="App">
         <DragDropContextProvider backend={HTML5Backend}>
-          <TodoItemDropTarget id={null} /> { /* special case for dragging TodoItem to top of list - "after nothing" */ }
+          <TodoItemDropTarget order={items[0].attributes.order - 1} />
           {
-            items
-              .map(item => (
-                <TodoItem key={item.id} item={item} />
-              ))
+            items.map((item, index, array) => {
+
+              // We want to reorder items between this and the next, but if we are the last, just add 1
+              const reorderValue = (index + 1) < array.length ?
+                (item.attributes.order + array[index + 1].attributes.order) / 2 :
+                item.attributes.order + 1;
+
+              return (
+                <div key={item.id} style={{
+                  marginTop: "-40px",
+                }}>
+                  <TodoItem item={item} reorderValue={reorderValue}/>
+                  <TodoItemDropTarget order={reorderValue} />
+                </div>
+              )
+            })
           }
         </DragDropContextProvider>
       </div>

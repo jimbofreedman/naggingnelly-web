@@ -10,10 +10,10 @@ import IconButton from '@material-ui/core/IconButton';
 import FailIcon from '@material-ui/icons/Cancel';
 import CancelIcon from '@material-ui/icons/RemoveCircle';
 import ErrorIcon from '@material-ui/icons/Error';
-import { DragSource, DropTarget } from 'react-dnd';
+import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from './Constants';
-import TodoItemDropTarget from './TodoItemDropTarget';
+import TodoItemDropTarget from './App';
 
 const todoItemSource = {
   beginDrag(props) {
@@ -46,7 +46,7 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { item, connectDragSource, connectDropTarget, isDragging } = this.props
+    const { item, reorderValue, connectDragSource } = this.props
 
     const due = item.attributes.due ? moment(item.attributes.due) : null;
     const overdue = due && due < moment() ? <ErrorIcon color="error" /> : null;
@@ -73,7 +73,6 @@ class TodoItem extends Component {
             </IconButton>
           </CardActions>
         </Card>
-        <TodoItemDropTarget id={item.id} />
       </div>
     );
   }

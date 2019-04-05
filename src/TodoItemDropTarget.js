@@ -8,7 +8,7 @@ const todoItemTarget = {
     console.log(monitor.getItem());
     monitor.getItem().item.update({
       attributes: {
-        prioritizeAfter: props.id,
+        order: props.order,
       }
     });
   },
@@ -18,17 +18,24 @@ function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
+    isDragging: monitor.getItem() !== null,
   }
 }
 
 class TodoItemDropTarget extends Component {
   render() {
-    const { id, connectDropTarget } = this.props;
+    const { connectDropTarget, isDragging } = this.props;
 
     return connectDropTarget(
-      <div>
-        {id}
-      </div>
+      <div style={
+        {
+          backgroundColor: "#ff0000",
+          position: "relative",
+          top: "-40px",
+          height: "80px",
+          opacity: isDragging ? 0.1 : 0.0,
+        }
+      }></div>
     );
   }
 }
