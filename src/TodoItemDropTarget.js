@@ -34,6 +34,7 @@ class TodoItemDropTarget extends Component {
           top: "-40px",
           height: "80px",
           opacity: isDragging ? 0.1 : 0.0,
+          pointerEvents: "none",
         }
       }></div>
     );

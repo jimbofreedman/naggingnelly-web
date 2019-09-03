@@ -56,7 +56,7 @@ class App extends Component {
     const now = moment().format();
 
     const items = todoItemStore.all()
-      .filter(item => item.attributes.status === 'open' && item.attributes.start < now)
+      .filter(item => item.attributes.status === 'open' && (!item.attributes.start || item.attributes.start < now))
       .sort((a, b) => a.attributes.order - b.attributes.order);
 
     if (items.length === 0) {
