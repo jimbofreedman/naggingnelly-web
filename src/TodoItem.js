@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 
 import moment from 'moment';
 
-import { Card, CardHeader, CardContent, CardActionArea, CardActions } from '@material-ui/core';
+import { Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import FailIcon from '@material-ui/icons/Cancel';
