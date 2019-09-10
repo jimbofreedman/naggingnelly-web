@@ -6,6 +6,9 @@ import axios from 'axios';
 import moment from 'moment';
 import { ResourceStore } from '@reststate/mobx';
 
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import theme from './theme';
+
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
@@ -64,29 +67,31 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <DragDropContextProvider backend={HTML5Backend}>
-          <TodoItemDropTarget order={items[0].attributes.order - 1} />
-          {
-            items.map((item, index, array) => {
+      <MuiThemeProvider theme={theme}>
+        <div className="App">
+          <DragDropContextProvider backend={HTML5Backend}>
+            <TodoItemDropTarget order={items[0].attributes.order - 1} />
+            {
+              items.map((item, index, array) => {
 
-              // We want to reorder items between this and the next, but if we are the last, just add 1
-              const reorderValue = (index + 1) < array.length ?
-                (item.attributes.order + array[index + 1].attributes.order) / 2 :
-                item.attributes.order + 1;
+                // We want to reorder items between this and the next, but if we are the last, just add 1
+                const reorderValue = (index + 1) < array.length ?
+                  (item.attributes.order + array[index + 1].attributes.order) / 2 :
+                  item.attributes.order + 1;
 
-              return (
-                <div key={item.id} style={{
-                  marginTop: "-40px",
-                }}>
-                  <TodoItem item={item} />
-                  <TodoItemDropTarget order={reorderValue} />
-                </div>
-              )
-            })
-          }
-        </DragDropContextProvider>
-      </div>
+                return (
+                  <div key={item.id} style={{
+                    marginTop: "-40px",
+                  }}>
+                    <TodoItem item={item} />
+                    <TodoItemDropTarget order={reorderValue} />
+                  </div>
+                )
+              })
+            }
+          </DragDropContextProvider>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
