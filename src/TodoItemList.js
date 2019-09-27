@@ -34,7 +34,7 @@ class TodoItemList extends Component {
 
             return (
               <div key={item.id} style={{
-                marginTop: "-40px",
+                marginTop: "-40px", marginBottom: "-70px",
               }}>
                 <TodoItem item={item} />
                 <TodoItemDropTarget order={reorderValue} />
