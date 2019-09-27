@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import { autorun } from 'mobx';
 import { observer } from 'mobx-react';
-import axios from 'axios';
-import moment from 'moment';
+import axios from 'axios'
 import { ResourceStore } from '@reststate/mobx';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
@@ -14,8 +14,8 @@ import HTML5Backend from 'react-dnd-html5-backend'
 
 import config from './config';
 
-import TodoItem from './TodoItem';
-import TodoItemDropTarget from './TodoItemDropTarget';
+import AddTodoItem from "./AddTodoItem";
+import TodoItemList from './TodoItemList';
 
 const token = '[the token you received from the POST request above]';
 
@@ -38,6 +38,11 @@ const todoItemStore = new ResourceStore({
   httpClient,
 });
 
+autorun(() => {
+    todoItemStore.loadAll().then(todoItems => console.log("loaded", todoItems))
+  }, { scheduler: run => { setTimeout(run, 30000) }}
+);
+
 
 class App extends Component {
   componentDidMount() {
@@ -56,41 +61,12 @@ class App extends Component {
       return <p>Error loading items.</p>;
     }
 
-    const now = moment().format();
-
-    const items = todoItemStore.all()
-      .filter(item => !item.attributes.deleted &&
-        item.attributes.status === 'open' &&
-        (!item.attributes.start || item.attributes.start < now))
-      .sort((a, b) => a.attributes.order - b.attributes.order);
-
-    if (items.length === 0) {
-      return <p>No items</p>;
-    }
-
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
           <DragDropContextProvider backend={HTML5Backend}>
-            <TodoItemDropTarget order={items[0].attributes.order - 1} />
-            {
-              items.map((item, index, array) => {
-
-                // We want to reorder items between this and the next, but if we are the last, just add 1
-                const reorderValue = (index + 1) < array.length ?
-                  (item.attributes.order + array[index + 1].attributes.order) / 2 :
-                  item.attributes.order + 1;
-
-                return (
-                  <div key={item.id} style={{
-                    marginTop: "-40px",
-                  }}>
-                    <TodoItem item={item} />
-                    <TodoItemDropTarget order={reorderValue} />
-                  </div>
-                )
-              })
-            }
+            <AddTodoItem create={todoItemStore.create} />
+            <TodoItemList items={todoItemStore.all()} />
           </DragDropContextProvider>
         </div>
       </MuiThemeProvider>
