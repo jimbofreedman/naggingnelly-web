@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import FailIcon from '@material-ui/icons/Cancel';
 import CancelIcon from '@material-ui/icons/RemoveCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ErrorIcon from '@material-ui/icons/Error';
 import { DragSource } from 'react-dnd';
 
@@ -32,15 +33,18 @@ class TodoItem extends Component {
     super(props);
 
     this.updateStatus = this.updateStatus.bind(this);
+    this.updateItem = this.updateItem.bind(this);
   }
 
   updateStatus(newStatus) {
+    this.updateItem({ status: newStatus });
+  }
+
+  updateItem(attributes) {
     const { item } = this.props;
 
     item.update({
-      attributes: {
-        status: newStatus,
-      },
+      attributes
     })
   }
 
@@ -71,6 +75,9 @@ class TodoItem extends Component {
             </Typography>
           </CardContent>
           <CardActions>
+            <IconButton aria-label="Menu" onClick={() => this.updateItem({ deleted: true })}>
+              <DeleteIcon />
+            </IconButton>
             <IconButton aria-label="Menu" onClick={() => this.updateStatus('cancelled')}>
               <CancelIcon />
             </IconButton>
