@@ -105,8 +105,7 @@ class TodoItem extends Component {
 
     const subheader = due ? (
       <Typography>
-Due
-        {due.fromNow()}
+        {`Due ${due.fromNow()}`}
       </Typography>
     ) : null;
 
