@@ -12,9 +12,20 @@ import CancelIcon from '@material-ui/icons/RemoveCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ErrorIcon from '@material-ui/icons/Error';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { withStyles } from '@material-ui/styles';
+
 import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from './Constants';
+
+const styles = {
+  root: {
+    background: props =>
+      (props.item.attributes.due && moment(props.item.attributes.due) < moment())
+        ? 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+        : 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+  },
+};
 
 const todoItemSource = {
   beginDrag(props) {
@@ -82,20 +93,23 @@ class TodoItem extends Component {
       );
     };
 
-    const { item, connectDragSource } = this.props
+    const { classes, item, connectDragSource } = this.props
 
     const due = item.attributes.due ? moment(item.attributes.due) : null;
-    const overdue = due && due < moment() ? <ErrorIcon color="error" /> : null;
+    const overdue = due && due < moment();
 
     const header = (<Badge color="primary" badgeContent={item.attributes.streak}>
       <Typography variant="h6">{item.attributes.title}</Typography>
     </Badge>);
 
+    const subheader = due ? <Typography>Due {due.fromNow()}</Typography> : null;
+
     return connectDragSource(
       <div>
-        <Card>
+        <Card className={classes.root}>
           <CardHeader
             title={header}
+            subheader={subheader}
             disableTypography={true}
             avatar={
               <Checkbox
@@ -125,16 +139,11 @@ class TodoItem extends Component {
 
             }
           />
-          {due ? <CardContent>
-            <Typography variant="subtitle2">
-              {overdue} {due ? `Due ${due.fromNow()}` : ''}
-            </Typography>
-          </CardContent> : null}
         </Card>
       </div>
     );
   }
 }
 
-export default observer(DragSource(ItemTypes.TODO_ITEM, todoItemSource, collect)(TodoItem));
+export default withStyles(styles)(observer(DragSource(ItemTypes.TODO_ITEM, todoItemSource, collect)(TodoItem)));
 

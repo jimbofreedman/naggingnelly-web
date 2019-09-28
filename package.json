@@ -8,6 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "@material-ui/styles": "^4.4.3",
     "@reststate/mobx": "https://github.com/jimbofreedman/reststate-mobx.git",
     "axios": "^0.18.0",
     "mobx": "^5.9.0",
