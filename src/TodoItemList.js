@@ -34,7 +34,7 @@ const TodoItemList = ({ items }) => {
             <div
               key={item.id}
               style={{
-                marginTop: '-40px', marginBottom: '-70px',
+                marginTop: '-25px', marginBottom: '-45px',
               }}
             >
               <TodoItem item={item} />

@@ -5,6 +5,7 @@ import { ItemTypes } from './Constants';
 
 const todoItemTarget = {
   drop(props, monitor) {
+    console.log("Updating", props.order);
     monitor.getItem().item.update({
       attributes: {
         order: props.order,
@@ -30,10 +31,10 @@ class TodoItemDropTarget extends Component {
         {
           backgroundColor: '#ff0000',
           position: 'relative',
-          top: '-40px',
-          height: '80px',
+          top: '-25px',
+          height: '50px',
           opacity: isDragging ? 0.1 : 0.0,
-          pointerEvents: 'none',
+          pointerEvents: isDragging ? null : 'none',
         }
       }
       />,
