@@ -46,7 +46,7 @@ export default class TimeTracker extends Component {
 
     // eslint-disable-next-line no-undef
     this.audio = new Audio('http://soundbible.com/grab.php?id=701&type=mp3');
-    this.toggl = new TogglClient({ apiToken: config.togglApiToken });
+    this.toggl = new TogglClient({ apiToken: '4f6f4d4bb9aeefdf33719476ae2f6362' });
 
     this.duration = config.pomodoroDuration;
     this.startPomodoro = this.startPomodoro.bind(this);
