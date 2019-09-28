@@ -51,7 +51,7 @@ class App extends Component {
   }
 
   render() {
-    if (todoItemStore.loading) {
+    if (todoItemStore.loading && !todoItemStore.all().length) {
       return <p>Loading…</p>;
     }
 
