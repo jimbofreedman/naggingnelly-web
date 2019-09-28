@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Form } from 'mobx-react-form';
@@ -12,27 +13,30 @@ class AddTodoItemForm extends Form {
     this.create = create;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   plugins() {
     return {
       dvr: dvr(validatorjs),
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
   setup() {
     return {
       fields: [{
         name: 'title',
         placeholder: 'Add new item',
         rules: 'required|string',
-        value: ''
+        value: '',
       }],
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
   hooks() {
     return {
       onSuccess(form) {
-        this.create({ attributes: { order: 0, ...form.values() }});
+        this.create({ attributes: { order: 0, ...form.values() } });
       },
       // onError(form) {
       //   console.log('All form errors', form.errors());
@@ -52,6 +56,7 @@ class AddTodoItem extends Component {
     return (
       <form>
         <Paper>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Input {...this.form.$('title').bind()} />
           <Button type="button" onClick={this.form.onSubmit}>Add</Button>
         </Paper>
