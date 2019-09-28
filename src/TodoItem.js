@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 
 import moment from 'moment';
 
-import { Card, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
+import { Badge, Card, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import FailIcon from '@material-ui/icons/Cancel';
@@ -54,14 +54,16 @@ class TodoItem extends Component {
     const due = item.attributes.due ? moment(item.attributes.due) : null;
     const overdue = due && due < moment() ? <ErrorIcon color="error" /> : null;
 
+    const header = (<Badge color="primary" badgeContent={item.attributes.streak}>
+      <Typography variant="h6">{item.attributes.title}</Typography>
+    </Badge>);
+
     return connectDragSource(
       <div>
         <Card>
           <CardHeader
-            title={item.attributes.title}
-            titleTypographyProps={{
-              variant: 'h6',
-            }}
+            title={header}
+            disableTypography={true}
             action={<Checkbox
               checked={item.attributes.status === 'complete'}
               tabIndex={-1}
@@ -71,7 +73,7 @@ class TodoItem extends Component {
           />
           <CardContent>
             <Typography variant="subtitle2">
-              {overdue} {due ? `Due ${due.fromNow()}` : ''} [streak: {item.attributes.streak}]
+              {overdue} {due ? `Due ${due.fromNow()}` : ''}
             </Typography>
           </CardContent>
           <CardActions>
