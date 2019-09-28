@@ -4,13 +4,14 @@ import { observer } from 'mobx-react';
 
 import moment from 'moment';
 
-import { Badge, Card, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
+import { Badge, Card, CardHeader, CardContent, CardActions, Typography, Menu, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import FailIcon from '@material-ui/icons/Cancel';
 import CancelIcon from '@material-ui/icons/RemoveCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ErrorIcon from '@material-ui/icons/Error';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from './Constants';
@@ -29,11 +30,32 @@ function collect(connect, monitor) {
 }
 
 class TodoItem extends Component {
+  handleClick(event) {
+    this.setState({
+      menuAnchorElement: event.currentTarget,
+    })
+  }
+
+  handleClose(callback) {
+    this.setState({
+      menuAnchorElement: null,
+    });
+    if (callback && callback.apply) {
+      callback();
+    }
+  }
+
   constructor(props) {
     super(props);
 
     this.updateStatus = this.updateStatus.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
+    this.state = {
+      menuAnchorElement: null,
+    };
   }
 
   updateStatus(newStatus) {
@@ -49,6 +71,17 @@ class TodoItem extends Component {
   }
 
   render() {
+    const TodoMenuItem = ({icon, text, onClick}) => {
+      return (
+        <MenuItem onClick={() => {this.handleClose(onClick)}}>
+          <ListItemIcon>
+            {icon}
+          </ListItemIcon>
+          <ListItemText primary={text} />
+        </MenuItem>
+      );
+    };
+
     const { item, connectDragSource } = this.props
 
     const due = item.attributes.due ? moment(item.attributes.due) : null;
@@ -64,29 +97,39 @@ class TodoItem extends Component {
           <CardHeader
             title={header}
             disableTypography={true}
-            action={<Checkbox
-              checked={item.attributes.status === 'complete'}
-              tabIndex={-1}
-              disableRipple
-              onChange={() => this.updateStatus('complete')}
-            />}
+            avatar={
+              <Checkbox
+                checked={item.attributes.status === 'complete'}
+                tabIndex={-1}
+                disableRipple
+                onChange={() => this.updateStatus('complete')}
+              />
+            }
+            action={
+              <div>
+                <IconButton aria-label="settings" onClick={this.handleClick}>
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.menuAnchorElement}
+                  autoFocus
+                  open={this.state.menuAnchorElement !== null}
+                  onClose={this.handleClose}
+                >
+                  <TodoMenuItem icon=<CancelIcon /> text={"Cancel"} onClick={() => this.updateStatus('cancelled')} />
+                  <TodoMenuItem icon=<FailIcon /> text={"Fail"} onClick={() => this.updateStatus('failed')} />
+                  <TodoMenuItem icon=<DeleteIcon /> text={"Delete"} onClick={() => this.updateItem({ deleted: true })} />
+                </Menu>
+              </div>
+
+            }
           />
-          <CardContent>
+          {due ? <CardContent>
             <Typography variant="subtitle2">
               {overdue} {due ? `Due ${due.fromNow()}` : ''}
             </Typography>
-          </CardContent>
-          <CardActions>
-            <IconButton aria-label="Menu" onClick={() => this.updateItem({ deleted: true })}>
-              <DeleteIcon />
-            </IconButton>
-            <IconButton aria-label="Menu" onClick={() => this.updateStatus('cancelled')}>
-              <CancelIcon />
-            </IconButton>
-            <IconButton aria-label="Menu" onClick={() => this.updateStatus('failed')}>
-              <FailIcon />
-            </IconButton>
-          </CardActions>
+          </CardContent> : null}
         </Card>
       </div>
     );
