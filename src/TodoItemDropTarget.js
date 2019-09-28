@@ -5,7 +5,6 @@ import { ItemTypes } from './Constants';
 
 const todoItemTarget = {
   drop(props, monitor) {
-    console.log("Updating", props.order);
     monitor.getItem().item.update({
       attributes: {
         order: props.order,
