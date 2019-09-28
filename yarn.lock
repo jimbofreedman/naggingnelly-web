@@ -3230,6 +3230,11 @@ csstype@^2.0.0, csstype@^2.2.0, csstype@^2.5.2, csstype@^2.6.5:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.6.tgz#c34f8226a94bbb10c32cc0d714afdf942291fc41"
   integrity sha512-RpFbQGUE74iyPgvr46U9t1xoQBM8T4BL8SxrN66Le2xYAPSaDJJKeztV3awugusb3g3G9iL8StmkBBXhcbbXhg==
 
+custom-error-generator@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/custom-error-generator/-/custom-error-generator-7.0.0.tgz#b16f8d09636327f69ae80a1043766f30f4506408"
+  integrity sha1-sW+NCWNjJ/aa6AoQQ3ZvMPRQZAg=
+
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
@@ -6750,7 +6755,7 @@ mobx@^5.9.0:
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.13.0.tgz#0fd68f10aa5ff2d146a4ed9e145b53337cfbca59"
   integrity sha512-eSAntMSMNj0PFL705rgv+aB/z1RjNqDnFEpBe18yQVreXTWiVgIrmBUXzjnJfuba+eo4eAk6zi+/gXQkSUea8A==
 
-moment@^2.24.0:
+moment@^2.10.6, moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -8897,7 +8902,7 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.87.0, request@^2.88.0:
+request@^2.67.0, request@^2.87.0, request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
@@ -9990,6 +9995,16 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     extend-shallow "^3.0.2"
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
+
+toggl-api@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/toggl-api/-/toggl-api-1.0.1.tgz#12e53e4fc6be3e6102127490c7bd9c5282678038"
+  integrity sha1-EuU+T8a+PmECEnSQx72cUoJngDg=
+  dependencies:
+    custom-error-generator "^7.0.0"
+    moment "^2.10.6"
+    object-assign "^4.0.1"
+    request "^2.67.0"
 
 toidentifier@1.0.0:
   version "1.0.0"

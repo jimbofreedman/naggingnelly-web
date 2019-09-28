@@ -16,6 +16,7 @@ import config from './config';
 
 import AddTodoItem from './AddTodoItem';
 import TodoItemList from './TodoItemList';
+import TimeTracker from './TimeTracker';
 
 const token = '[the token you received from the POST request above]';
 
@@ -62,6 +63,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
+          <TimeTracker />
           <DragDropContextProvider backend={HTML5Backend}>
             <AddTodoItem create={todoItemStore.create} />
             <TodoItemList items={todoItemStore.all()} />

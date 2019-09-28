@@ -27,6 +27,7 @@
     "superagent": "^4.1.0",
     "superagent-case-converter": "^0.1.1",
     "superagent-promise": "^1.1.0",
+    "toggl-api": "^1.0.1",
     "validatorjs": "^3.17.1"
   },
   "scripts": {
