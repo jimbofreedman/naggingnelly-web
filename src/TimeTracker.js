@@ -37,7 +37,7 @@ class PomodoroTimer extends Component {
     const remaining = moment.duration(end.diff(moment()));
     return (<Button>{`${remaining.get('m')}:${remaining.get('s')}`}</Button>);
   }
-};
+}
 
 
 @inject('user')
@@ -109,6 +109,7 @@ class TimeTracker extends Component {
       <Button
         color={description === currentDescription ? 'primary' : null}
         onClick={() => this.startPomodoro(description)}
+        disabled={currentDescription != null}
       >
         {description}
       </Button>

@@ -14,6 +14,7 @@ class LoginForm extends Form {
 
     this.doLogin = doLogin;
   }
+
   // eslint-disable-next-line class-methods-use-this
   plugins() {
     return {

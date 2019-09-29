@@ -15,7 +15,7 @@ const config = {
   },
   production: {
     api: {
-      endpoint: 'https://naggingnelly-backend.herokuapp.com/api',
+      endpoint: 'https://backend.naggingnelly.com/api/',
     },
     autoRefresh: true,
     pomodoroDuration: 25 * 30 * 1000,
