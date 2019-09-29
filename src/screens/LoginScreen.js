@@ -5,7 +5,7 @@ import { Form } from 'mobx-react-form';
 import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 import {
-  Paper, Button, Input, Typography,
+  Paper, Button, TextField,
 } from '@material-ui/core';
 
 class LoginForm extends Form {
@@ -14,7 +14,6 @@ class LoginForm extends Form {
 
     this.doLogin = doLogin;
   }
-
   // eslint-disable-next-line class-methods-use-this
   plugins() {
     return {
@@ -27,13 +26,14 @@ class LoginForm extends Form {
     return {
       fields: [{
         name: 'email',
-        placeholder: 'Add new item',
+        placeholder: 'E-mail',
         rules: 'required|string',
         value: '',
       },
       {
         name: 'password',
-        placeholder: 'Add new item',
+        type: 'password',
+        placeholder: 'Password',
         rules: 'required|string',
         value: '',
       }],
@@ -50,33 +50,23 @@ class LoginForm extends Form {
   }
 }
 
-@inject('userStore')
+@inject('user')
 @observer
 class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.form = new LoginForm(props.userStore.login);
+    this.form = new LoginForm(props.user.login);
   }
 
   render() {
-    const { userStore } = this.props;
-    if (userStore.isLoggedIn) {
-      return (
-        <Paper>
-          <Typography>{userStore.user.attributes.email}</Typography>
-          <Button type="button" onClick={userStore.logout}>Logout</Button>
-        </Paper>
-      );
-    }
-
     return (
       <form>
         <Paper>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Input {...this.form.$('email').bind()} />
+          <TextField {...this.form.$('email').bind()} />
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Input {...this.form.$('password').bind()} />
+          <TextField {...this.form.$('password').bind()} />
           <Button type="button" onClick={this.form.onSubmit}>Login</Button>
         </Paper>
       </form>

@@ -3,6 +3,8 @@ import { observable, action, computed } from 'mobx';
 export default class UserStore {
   @observable user = null;
 
+  @observable loading = true;
+
   constructor(httpClient) {
     this.httpClient = httpClient;
 
@@ -42,11 +44,15 @@ export default class UserStore {
   }
 
   @action getUser() {
+    this.loading = true;
     this.httpClient.get('users/me').then((response) => {
       this.user = response.data.data;
-    });
+    })
     // .catch((error) => {
     //   console.log(error);
     // });
+      .finally(() => {
+        this.loading = false;
+      });
   }
 }

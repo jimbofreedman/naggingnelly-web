@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import TogglClient from 'toggl-api';
 import moment from 'moment';
+import { inject, observer } from 'mobx-react';
 
 import config from './config';
 
-const PomodoroTimer = class extends Component {
+class PomodoroTimer extends Component {
   constructor(props) {
     super(props);
     this.state = { seconds: 0 };
@@ -38,7 +39,10 @@ const PomodoroTimer = class extends Component {
   }
 };
 
-export default class TimeTracker extends Component {
+
+@inject('user')
+@observer
+class TimeTracker extends Component {
   constructor(props) {
     super(props);
 
@@ -46,7 +50,7 @@ export default class TimeTracker extends Component {
 
     // eslint-disable-next-line no-undef
     this.audio = new Audio('http://soundbible.com/grab.php?id=701&type=mp3');
-    this.toggl = new TogglClient({ apiToken: '4f6f4d4bb9aeefdf33719476ae2f6362' });
+    this.toggl = new TogglClient({ apiToken: props.user.user.attributes.togglApiToken });
 
     this.duration = config.pomodoroDuration;
     this.startPomodoro = this.startPomodoro.bind(this);
@@ -121,3 +125,5 @@ export default class TimeTracker extends Component {
     );
   }
 }
+
+export default TimeTracker;

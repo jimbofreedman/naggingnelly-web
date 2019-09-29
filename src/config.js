@@ -5,7 +5,6 @@ const config = {
     },
     autoRefresh: false,
     pomodoroDuration: 25 * 60 * 1000,
-    togglApiToken: process.env.TOGGL_API_TOKEN,
   },
   test: {
     api: {
@@ -13,7 +12,6 @@ const config = {
     },
     autoRefresh: false,
     pomodoroDuration: 1 * 30 * 1000,
-    togglApiToken: process.env.TOGGL_API_TOKEN,
   },
   production: {
     api: {
@@ -21,7 +19,6 @@ const config = {
     },
     autoRefresh: true,
     pomodoroDuration: 25 * 30 * 1000,
-    togglApiToken: process.env.TOGGL_API_TOKEN,
   },
 };
 
