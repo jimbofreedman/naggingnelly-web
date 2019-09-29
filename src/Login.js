@@ -4,7 +4,9 @@ import { inject, observer } from 'mobx-react';
 import { Form } from 'mobx-react-form';
 import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
-import { Paper, Button, Input, Typography } from '@material-ui/core';
+import {
+  Paper, Button, Input, Typography,
+} from '@material-ui/core';
 
 class LoginForm extends Form {
   constructor(doLogin) {
@@ -60,13 +62,12 @@ class Login extends Component {
   render() {
     const { userStore } = this.props;
     if (userStore.isLoggedIn) {
-      console.log(userStore.user);
       return (
         <Paper>
           <Typography>{userStore.user.attributes.email}</Typography>
           <Button type="button" onClick={userStore.logout}>Logout</Button>
         </Paper>
-      )
+      );
     }
 
     return (

@@ -10,7 +10,6 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { Button } from '@material-ui/core';
 import theme from './theme';
 
 import config from './config';

@@ -22,10 +22,10 @@ export default class UserStore {
       },
     }).then(() => {
       this.getUser();
-    })
-      .catch((error) => {
-        console.log(error);
-      });
+    });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
   }
 
   @action logout() {
@@ -33,21 +33,20 @@ export default class UserStore {
       data: {
         type: 'logoutViews',
       },
-    }).then((response) => {
+    }).then(() => {
       this.user = null;
-    })
-      .catch((error) => {
-        console.log(error);
-      });
+    });
+    // .catch((error) => {
+    //
+    // });
   }
 
   @action getUser() {
     this.httpClient.get('users/me').then((response) => {
-      console.log(response);
       this.user = response.data.data;
-    })
-      .catch((error) => {
-        console.log(error);
-      });
+    });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
   }
 }
