@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { autorun } from 'mobx';
-import { observer } from 'mobx-react';
+import { Provider, observer } from 'mobx-react';
 import axios from 'axios';
 import { ResourceStore } from '@reststate/mobx';
 
@@ -10,21 +10,25 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { Button } from '@material-ui/core';
 import theme from './theme';
 
 import config from './config';
 
+import UserStore from './UserStore';
+import Login from './Login';
 import AddTodoItem from './AddTodoItem';
 import TodoItemList from './TodoItemList';
 import TimeTracker from './TimeTracker';
 
-const token = '[the token you received from the POST request above]';
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 const httpClient = axios.create({
   baseURL: config.api.endpoint,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/vnd.api+json',
-    Authorization: `Bearer ${token}`,
   },
 });
 
@@ -41,6 +45,8 @@ const todoItemStore = new ResourceStore({
   httpClient,
 });
 
+const userStore = new UserStore(httpClient);
+
 autorun(() => {
   todoItemStore.loadAll();
 }, { scheduler: (run) => { setTimeout(run, 30000); } });
@@ -48,7 +54,7 @@ autorun(() => {
 
 class App extends Component {
   componentDidMount() {
-    todoItemStore.loadAll();
+    userStore.getUser();
   }
 
   render() {
@@ -56,19 +62,19 @@ class App extends Component {
       return <p>Loading…</p>;
     }
 
-    if (todoItemStore.error) {
-      return <p>Error loading items.</p>;
-    }
-
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="App">
-          <TimeTracker />
-          <DragDropContextProvider backend={HTML5Backend}>
-            <AddTodoItem create={todoItemStore.create} />
-            <TodoItemList items={todoItemStore.all()} />
-          </DragDropContextProvider>
-        </div>
+        <Provider userStore={userStore} todoItemStore={todoItemStore}>
+          <div className="App">
+            <Login />
+            <TimeTracker />
+            <DragDropContextProvider backend={HTML5Backend}>
+              <AddTodoItem create={todoItemStore.create} />
+              <TodoItemList items={todoItemStore.all()} />
+              {todoItemStore.error ? <p>Error loading items.</p> : null}
+            </DragDropContextProvider>
+          </div>
+        </Provider>
       </MuiThemeProvider>
     );
   }

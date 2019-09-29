@@ -1,15 +1,15 @@
 const config = {
   development: {
     api: {
-      endpoint: 'http://localhost:8000/todo/api/',
+      endpoint: 'http://localhost:8000/api/',
     },
     autoRefresh: false,
-    pomodoroDuration: 1 * 30 * 1000,
+    pomodoroDuration: 25 * 60 * 1000,
     togglApiToken: process.env.TOGGL_API_TOKEN,
   },
   test: {
     api: {
-      endpoint: 'http://localhost:8000/todo/api/',
+      endpoint: 'http://localhost:8000/api/',
     },
     autoRefresh: false,
     pomodoroDuration: 1 * 30 * 1000,
@@ -17,7 +17,7 @@ const config = {
   },
   production: {
     api: {
-      endpoint: 'https://naggingnelly-backend.herokuapp.com/todo/api',
+      endpoint: 'https://naggingnelly-backend.herokuapp.com/api',
     },
     autoRefresh: true,
     pomodoroDuration: 25 * 30 * 1000,
