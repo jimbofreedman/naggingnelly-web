@@ -102,7 +102,7 @@ class TodoItem extends Component {
     );
 
     const { classes, item, connectDragSource } = this.props;
-    const { menuAnchorElement } = this.state;
+    const { loading, menuAnchorElement } = this.state;
 
     const due = item.attributes.due ? moment(item.attributes.due) : null;
 
@@ -120,7 +120,7 @@ class TodoItem extends Component {
 
     return connectDragSource(
       <div>
-        <Card className={classes.root} style={{ background: this.state.loading ? 'black' : null }}>
+        <Card className={classes.root} style={{ background: loading ? 'black' : null }}>
           <CardHeader
             title={header}
             subheader={subheader}
