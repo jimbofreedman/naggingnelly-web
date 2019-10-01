@@ -72,7 +72,7 @@ class TodoItem extends Component {
     item.update({
       attributes,
     }).then(() => {
-      this.setState({ loading: true });
+      this.setState({ loading: false });
     });
   }
 
