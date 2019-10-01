@@ -4,6 +4,8 @@ import './App.css';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 
+import InfiniteScroll from 'react-infinite-scroller';
+
 import TodoItem from './TodoItem';
 import TodoItemDropTarget from './TodoItemDropTarget';
 
@@ -21,7 +23,12 @@ const TodoItemList = ({ items }) => {
   }
 
   return (
-    <div>
+    <InfiniteScroll
+      pageStart={0}
+      loadMore={null}
+      hasMore={false}
+      loader={<div key={0}>Loading ...</div>}
+    >
       <TodoItemDropTarget order={sortedItems[0].attributes.order - 1} />
       {
         sortedItems.map((item, index, array) => {
@@ -43,7 +50,7 @@ const TodoItemList = ({ items }) => {
           );
         })
       }
-    </div>
+    </InfiniteScroll>
   );
 };
 
