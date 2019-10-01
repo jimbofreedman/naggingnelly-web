@@ -17,7 +17,7 @@ import { withStyles } from '@material-ui/styles';
 
 import { DragSource } from 'react-dnd';
 
-import { ItemTypes } from './Constants';
+import { ItemTypes } from '../Constants';
 
 const styles = {
   root: {
@@ -47,6 +47,7 @@ class TodoItem extends Component {
 
     this.updateStatus = this.updateStatus.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.snoozeItem = this.snoozeItem.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
 
@@ -65,6 +66,10 @@ class TodoItem extends Component {
     item.update({
       attributes,
     });
+  }
+
+  snoozeItem(days) {
+    this.updateItem({ start: moment().add(days, 'days') });
   }
 
   handleClick(event) {
@@ -139,6 +144,10 @@ class TodoItem extends Component {
                   <TodoMenuItem icon=<CancelIcon /> text="Cancel" onClick={() => this.updateStatus('cancelled')} />
                   <TodoMenuItem icon=<FailIcon /> text="Fail" onClick={() => this.updateStatus('failed')} />
                   <TodoMenuItem icon=<DeleteIcon /> text="Delete" onClick={() => this.updateItem({ deleted: true })} />
+                  <TodoMenuItem icon=<DeleteIcon /> text="Snooze 1 day" onClick={() => this.snoozeItem(1)} />
+                  <TodoMenuItem icon=<DeleteIcon /> text="Snooze 2 days" onClick={() => this.snoozeItem(2)} />
+                  <TodoMenuItem icon=<DeleteIcon /> text="Snooze 3 days" onClick={() => this.snoozeItem(3)} />
+                  <TodoMenuItem icon=<DeleteIcon /> text="Snooze 1 week" onClick={() => this.snoozeItem(7)} />
                 </Menu>
               </div>
 )}

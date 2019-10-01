@@ -4,9 +4,9 @@ import { inject, observer } from 'mobx-react';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { Button } from '@material-ui/core';
-import AddTodoItem from '../AddTodoItem';
-import TodoItemList from '../TodoItemList';
-import TimeTracker from '../TimeTracker';
+import AddTodoItem from '../components/AddTodoItem';
+import TodoItemList from '../components/TodoItemList';
+import TimeTracker from '../components/TimeTracker';
 
 @inject('user', 'todoItems')
 @observer

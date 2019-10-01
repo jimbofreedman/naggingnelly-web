@@ -5,7 +5,7 @@ import TogglClient from 'toggl-api';
 import moment from 'moment';
 import { inject, observer } from 'mobx-react';
 
-import config from './config';
+import config from '../config';
 
 class PomodoroTimer extends Component {
   constructor(props) {

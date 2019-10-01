@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import './App.css';
+import './components/App.css';
 
 import { autorun } from 'mobx';
 import { Provider } from 'mobx-react';
@@ -12,7 +12,7 @@ import { ResourceStore } from '@reststate/mobx';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import * as serviceWorker from './serviceWorker';
-import App from './App';
+import App from './components/App';
 import theme from './theme';
 
 import config from './config';

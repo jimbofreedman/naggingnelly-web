@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
-import { ItemTypes } from './Constants';
+import { ItemTypes } from '../Constants';
 
 
 const todoItemTarget = {

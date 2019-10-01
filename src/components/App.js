@@ -3,8 +3,8 @@ import './App.css';
 
 import { inject, observer } from 'mobx-react';
 
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
+import LoginScreen from '../screens/LoginScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 
 @inject('user')
