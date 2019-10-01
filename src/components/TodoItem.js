@@ -46,12 +46,13 @@ class TodoItem extends Component {
     super(props);
 
     this.updateStatus = this.updateStatus.bind(this);
-    this.updateItem = this.updateItem.bind(this);
     this.snoozeItem = this.snoozeItem.bind(this);
+    this.updateItem = this.updateItem.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
+      loading: false,
       menuAnchorElement: null,
     };
   }
@@ -60,16 +61,19 @@ class TodoItem extends Component {
     this.updateItem({ status: newStatus });
   }
 
-  updateItem(attributes) {
-    const { item } = this.props;
-
-    item.update({
-      attributes,
-    });
-  }
 
   snoozeItem(days) {
     this.updateItem({ start: moment().add(days, 'days') });
+  }
+
+  updateItem(attributes) {
+    const { item } = this.props;
+    this.setState({ loading: true });
+    item.update({
+      attributes,
+    }).then(() => {
+      this.setState({ loading: true });
+    });
   }
 
   handleClick(event) {
@@ -116,7 +120,7 @@ class TodoItem extends Component {
 
     return connectDragSource(
       <div>
-        <Card className={classes.root}>
+        <Card className={classes.root} style={{ background: this.state.loading ? 'black' : null }}>
           <CardHeader
             title={header}
             subheader={subheader}
