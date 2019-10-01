@@ -4,7 +4,7 @@ import './App.css';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import TodoItem from './TodoItem';
 import TodoItemDropTarget from './TodoItemDropTarget';
@@ -24,10 +24,10 @@ const TodoItemList = ({ items }) => {
 
   return (
     <InfiniteScroll
-      pageStart={0}
-      loadMore={null}
+      dataLength={(sortedItems.length * 2) + 1}
+      // next={fetchData}
       hasMore={false}
-      loader={<div key={0}>Loading ...</div>}
+      loader={<div>Loading...</div>}
     >
       <TodoItemDropTarget order={sortedItems[0].attributes.order - 1} />
       {

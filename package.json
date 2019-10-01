@@ -27,7 +27,7 @@
     "react-dnd": "^7.4.4",
     "react-dnd-html5-backend": "^7.4.4",
     "react-dom": "^16.6.3",
-    "react-infinite-scroller": "^1.2.4",
+    "react-infinite-scroll-component": "^4.5.3",
     "superagent": "^4.1.0",
     "superagent-case-converter": "^0.1.1",
     "superagent-promise": "^1.1.0",
