@@ -23,15 +23,17 @@ function collect(connect, monitor) {
 
 class TodoItemDropTarget extends Component {
   render() {
-    const { connectDropTarget, isDragging } = this.props;
+    const { direction, connectDropTarget, isDragging } = this.props;
 
     return connectDropTarget(
       <div style={
         {
-          backgroundColor: '#ff0000',
+          backgroundColor: '#808000',
           position: 'relative',
-          top: '-25px',
-          height: '50px',
+          top: direction === 'up' ? '25px' : '-25px',
+          height: '25px',
+          marginTop: direction === 'up' ? '-25px' : '0px',
+          marginBottom: direction === 'up' ? '0px' : '-25px',
           opacity: isDragging ? 0.1 : 0.0,
           pointerEvents: isDragging ? null : 'none',
         }

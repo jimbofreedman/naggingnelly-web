@@ -18,6 +18,7 @@ import { withStyles } from '@material-ui/styles';
 import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../Constants';
+import TodoItemDropTarget from "./TodoItemDropTarget";
 
 const styles = {
   root: {
