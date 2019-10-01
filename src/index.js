@@ -11,6 +11,8 @@ import { ResourceStore } from '@reststate/mobx';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import * as serviceWorker from './serviceWorker';
 import App from './components/App';
 import theme from './theme';
@@ -60,7 +62,9 @@ ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <Provider {...stores}>
-      <App />
+      <DragDropContextProvider backend={HTML5Backend}>
+        <App />
+      </DragDropContextProvider>
     </Provider>
     {/* eslint-disable-next-line no-undef */}
   </MuiThemeProvider>, document.getElementById('root'),

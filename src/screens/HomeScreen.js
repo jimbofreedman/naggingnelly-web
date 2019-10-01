@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import { Button } from '@material-ui/core';
 import AddTodoItem from '../components/AddTodoItem';
 import TodoItemList from '../components/TodoItemList';
@@ -27,11 +25,9 @@ class HomeScreen extends Component {
       <div>
         <Button type="button" onClick={user.logout}>Logout</Button>
         <TimeTracker />
-        <DragDropContextProvider backend={HTML5Backend}>
-          <AddTodoItem create={todoItems.create} />
-          <TodoItemList items={todoItems.all()} />
-          {todoItems.error ? <p>Error loading items.</p> : null}
-        </DragDropContextProvider>
+        <AddTodoItem create={todoItems.create} />
+        <TodoItemList items={todoItems.all()} />
+        {todoItems.error ? <p>Error loading items.</p> : null}
       </div>
     );
   }

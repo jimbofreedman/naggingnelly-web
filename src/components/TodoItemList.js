@@ -29,7 +29,7 @@ const TodoItemList = ({ items }) => {
       <Infinite containerHeight={scrollerHeight} elementHeight={69}>
         {
           sortedItems.map((item, index, array) => {
-            // We want to reorder items between this and the next, but if we are the last, just add 1
+            // We want to reorder items between this and next, but if we are the last, just add 1
             const reorderValuePrevious = index > 0
               ? (item.attributes.order + array[index - 1].attributes.order) / 2
               : item.attributes.order - 1;
