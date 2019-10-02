@@ -18,7 +18,7 @@ const config = {
       endpoint: 'https://backend.naggingnelly.com/api/',
     },
     autoRefresh: true,
-    pomodoroDuration: 25 * 30 * 1000,
+    pomodoroDuration: 25 * 60 * 1000,
   },
 };
 
