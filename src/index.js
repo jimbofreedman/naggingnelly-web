@@ -20,6 +20,7 @@ import theme from './theme';
 import config from './config';
 
 import UserStore from './UserStore';
+import TodoItemStore from './TodoItemStore';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -40,10 +41,7 @@ httpClient.interceptors.request.use((httpConfig) => {
   return httpConfig;
 });
 
-const todoItemStore = new ResourceStore({
-  name: 'todoItems',
-  httpClient,
-});
+const todoItemStore = new TodoItemStore(httpClient);
 
 const userStore = new UserStore(httpClient);
 

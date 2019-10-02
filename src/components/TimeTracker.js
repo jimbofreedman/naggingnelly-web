@@ -35,7 +35,7 @@ class PomodoroTimer extends Component {
     }
 
     const remaining = moment.duration(end.diff(moment()));
-    return (<Button>{`${remaining.get('m')}:${remaining.get('s')}`}</Button>);
+    return (<Button>{`${remaining.get('m').toString().padStart(2, '0')}:${remaining.get('s').toString().padStart(2, '0')}`}</Button>);
   }
 }
 
