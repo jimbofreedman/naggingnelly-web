@@ -1,6 +1,6 @@
 import { ResourceStore } from '@reststate/mobx';
-import {observable, computed} from 'mobx';
-import moment from "moment";
+import { observable, computed } from 'mobx';
+import moment from 'moment';
 
 export default class TodoItemStore {
   constructor(httpClient) {

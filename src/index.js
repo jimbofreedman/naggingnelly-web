@@ -7,7 +7,6 @@ import './components/App.css';
 import { autorun } from 'mobx';
 import { Provider } from 'mobx-react';
 import axios from 'axios';
-import { ResourceStore } from '@reststate/mobx';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 

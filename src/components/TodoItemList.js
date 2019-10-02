@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 
 import { observer } from 'mobx-react';
-import moment from 'moment';
 
 import Infinite from 'react-infinite';
 
