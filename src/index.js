@@ -60,14 +60,16 @@ autorun(() => {
 // eslint-disable-next-line no-undef
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-    <Provider {...stores}>
-      <DragDropContextProvider backend={HTML5Backend}>
-        <App />
-      </DragDropContextProvider>
-    </Provider>
-    {/* eslint-disable-next-line no-undef */}
-  </MuiThemeProvider>, document.getElementById('root'),
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+        <Provider {...stores}>
+          <DragDropContextProvider backend={HTML5Backend}>
+            <App />
+          </DragDropContextProvider>
+        </Provider>
+        {/* eslint-disable-next-line no-undef */}
+    </MuiThemeProvider>
+, document.getElementById('root'),
+
 );
 
 // If you want your app to work offline and load faster, you can change

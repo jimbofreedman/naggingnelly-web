@@ -19,14 +19,14 @@ import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../Constants';
 
-const styles = {
-  root: {
-    background: (props) => ((props.item.attributes.due
-      && moment(props.item.attributes.due) < moment())
-      ? 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
-      : 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'),
-  },
-};
+// const styles = {
+//   root: {
+//     background: (props) => ((props.item.attributes.due
+//       && moment(props.item.attributes.due) < moment())
+//       ? 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+//       : 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'),
+//   },
+// };
 
 const todoItemSource = {
   beginDrag(props) {
@@ -101,7 +101,7 @@ class TodoItem extends Component {
       </MenuItem>
     );
 
-    const { classes, item, connectDragSource } = this.props;
+    const { item, connectDragSource } = this.props;
     const { loading, menuAnchorElement } = this.state;
 
     const due = item.attributes.due ? moment(item.attributes.due) : null;
@@ -118,9 +118,14 @@ class TodoItem extends Component {
       </Typography>
     ) : null;
 
+    const background = loading ? 'black' : ((item.attributes.due
+      && moment(item.attributes.due) < moment())
+      ? 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+      : 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)');
+
     return connectDragSource(
       <div>
-        <Card className={classes.root} style={{ background: loading ? 'black' : null }}>
+        <Card style={{ background }}>
           <CardHeader
             title={header}
             subheader={subheader}
@@ -162,5 +167,5 @@ class TodoItem extends Component {
   }
 }
 
-const observed = observer(DragSource(ItemTypes.TODO_ITEM, todoItemSource, collect)(TodoItem));
-export default withStyles(styles)(observed);
+export default observer(DragSource(ItemTypes.TODO_ITEM, todoItemSource, collect)(TodoItem));
+// export default withStyles(styles)(observed);
