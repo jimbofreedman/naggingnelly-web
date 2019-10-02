@@ -10,25 +10,13 @@ import TodoItem from './TodoItem';
 import TodoItemDropTarget from './TodoItemDropTarget';
 
 const TodoItemList = ({ items }) => {
-  const now = moment().format();
-
-  const sortedItems = items
-    .filter((item) => !item.attributes.deleted
-      && item.attributes.status === 'open'
-      && (!item.attributes.start || item.attributes.start < now))
-    .sort((a, b) => a.attributes.order - b.attributes.order);
-
-  if (sortedItems.length === 0) {
-    return <p>No items</p>;
-  }
-
   const scrollerHeight = 1200;
 
   return (
     <div style={{ height: scrollerHeight }}>
       <Infinite containerHeight={scrollerHeight} elementHeight={69}>
         {
-          sortedItems.map((item, index, array) => {
+          items.map((item, index, array) => {
             // We want to reorder items between this and next, but if we are the last, just add 1
             const reorderValuePrevious = index > 0
               ? (item.attributes.order + array[index - 1].attributes.order) / 2

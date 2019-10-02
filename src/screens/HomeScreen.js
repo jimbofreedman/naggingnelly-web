@@ -26,7 +26,7 @@ class HomeScreen extends Component {
         <Button type="button" onClick={user.logout}>Logout</Button>
         <TimeTracker />
         <AddTodoItem create={todoItems.create} />
-        <TodoItemList items={todoItems.all()} />
+        <TodoItemList items={todoItems.sorted} />
         {todoItems.error ? <p>Error loading items.</p> : null}
       </div>
     );
