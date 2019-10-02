@@ -13,7 +13,6 @@ import FailIcon from '@material-ui/icons/Cancel';
 import CancelIcon from '@material-ui/icons/RemoveCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { withStyles } from '@material-ui/styles';
 
 import { DragSource } from 'react-dnd';
 
@@ -108,7 +107,11 @@ class TodoItem extends Component {
 
     const header = (
       <Badge color="primary" badgeContent={item.attributes.streak}>
-        <Typography variant="h6">{item.attributes.title}</Typography>
+        <Typography
+          variant="h6"
+        >
+          {item.attributes.title}
+        </Typography>
       </Badge>
     );
 
